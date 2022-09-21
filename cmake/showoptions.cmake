@@ -67,6 +67,12 @@ else()
   message(STATUS "Build Playerbot       : No  (default)")
 endif()
 
+if(BUILD_DISCORD)
+  message(STATUS "Build Discord bot     : Yes")
+else()
+  message(STATUS "Build Discord bot     : No  (default)")
+endif()
+
 if(BUILD_EXTRACTORS)
   message(STATUS "Build extractors      : Yes")
 else()

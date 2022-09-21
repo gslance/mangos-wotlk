@@ -35,6 +35,10 @@
 extern int m_ServiceStatus;
 #endif
 
+#ifdef BUILD_DISCORD
+#include "../modules/Discord/src/DiscordMgr.h"
+#endif
+
 /// Heartbeat for the World
 void WorldRunnable::run()
 {
@@ -74,6 +78,10 @@ void WorldRunnable::run()
         while (m_ServiceStatus == 2) Sleep(1000);
 #endif
     }
+
+#ifdef BUILD_DISCORD
+    sDiscordMgr.Exit();
+#endif
 
     sWorld.CleanupsBeforeStop();
 

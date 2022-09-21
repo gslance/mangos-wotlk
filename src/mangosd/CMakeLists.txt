@@ -52,11 +52,20 @@ add_executable(${EXECUTABLE_NAME}
   ${EXECUTABLE_SRCS}
 )
 
-target_link_libraries(${EXECUTABLE_NAME}
-  shared
-  game
-  gsoap
-)
+if (BUILD_DISCORD)
+    target_link_libraries(${EXECUTABLE_NAME}
+    shared
+    game
+    gsoap
+    Discord
+    )
+else()
+    target_link_libraries(${EXECUTABLE_NAME}
+    shared
+    game
+    gsoap
+    )
+endif()
 
 if(WIN32)
   if(MSVC)

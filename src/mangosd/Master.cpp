@@ -53,6 +53,10 @@
 extern int m_ServiceStatus;
 #endif
 
+#ifdef BUILD_DISCORD
+#include "../modules/Discord/src/DiscordThread.h"
+#endif
+
 INSTANTIATE_SINGLETON_1(Master);
 
 volatile bool Master::m_canBeKilled = false;
@@ -141,6 +145,12 @@ int Master::Run()
     ///- Launch WorldRunnable thread
     MaNGOS::Thread world_thread(new WorldRunnable);
     world_thread.setPriority(MaNGOS::Priority_Highest);
+
+#ifdef BUILD_DISCORD
+    ///- Launch Discord thread
+    MaNGOS::Thread discord_thread(new DiscordThread);
+    discord_thread.setPriority(MaNGOS::Priority_Low);
+#endif
 
     // set realmbuilds depend on mangosd expected builds, and set server online
     {

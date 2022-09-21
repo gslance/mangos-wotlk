@@ -45,6 +45,10 @@
 
 #include "Policies/Singleton.h"
 
+#ifdef BUILD_DISCORD
+#include "../../modules/Discord/src/DiscordMgr.h"
+#endif
+
 INSTANTIATE_SINGLETON_1(AchievementGlobalMgr);
 
 namespace MaNGOS
@@ -2323,6 +2327,11 @@ void AchievementMgr::CompletedAchievement(AchievementEntry const* achievement)
 
     // reward items and titles if any
     AchievementReward const* reward = sAchievementMgr.GetAchievementReward(achievement, GetPlayer()->getGender());
+
+#ifdef BUILD_DISCORD
+    // TODO: add discord here
+    sDiscordMgr.BroadcastAchievement(GetPlayer(), achievement);
+#endif
 
     // no rewards
     if (!reward)

@@ -27,6 +27,10 @@
 #include "Spells/SpellTargetDefines.h"
 #include "Spells/SpellEffectDefines.h"
 
+#ifdef BUILD_DISCORD
+#include "../../modules/Discord/src/DiscordMgr.h"
+#endif
+
 void AddItemsSetItem(Player* player, Item* item)
 {
     ItemPrototype const* proto = item->GetProto();
@@ -237,6 +241,11 @@ bool Item::Create(uint32 guidlow, uint32 itemid, Player const* owner)
         SetSpellCharges(i, itemProto->Spells[i].SpellCharges);
 
     SetUInt32Value(ITEM_FIELD_DURATION, itemProto->Duration);
+
+#ifdef BUILD_DISCORD
+     if (itemProto->Quality > 3 && itemProto->Flags != 2048 && (itemProto->Class == ITEM_CLASS_WEAPON || itemProto->Class == ITEM_CLASS_ARMOR))
+        sDiscordMgr.BroadcastEpicItem(GetOwner(), itemProto);
+#endif
 
     return true;
 }

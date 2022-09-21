@@ -127,6 +127,11 @@ if (BUILD_PLAYERBOT)
   add_definitions(-DBUILD_PLAYERBOT)
 endif()
 
+# Define Ike3 Bots BUILD_DISCORD if need
+if (BUILD_DISCORD)
+  add_definitions(-DBUILD_DISCORD)
+endif()
+
 if (MSVC)
   set_target_properties(${LIBRARY_NAME} PROPERTIES PROJECT_LABEL "Game")
 endif()
